@@ -7,7 +7,7 @@ export const TOGGLE_SCORE = "TOGGLE_SCORE";
 export const RESET_SCORE = "RESET_SCORE";
 export const SET_SEARCH_TERM = "SET_SEARCH_TERM";
 
-export const loadCountry = (iso = null) => ({
+export const loadCountry = (iso: string = null) => ({
   type: LOAD_COUNTRY,
   payload: iso
 });
@@ -29,7 +29,7 @@ export const toggleDebug = () => ({
   type: TOGGLE_DEBUG
 });
 
-export const setSearchTerm = term => ({
+export const setSearchTerm = (term: string) => ({
   type: SET_SEARCH_TERM,
   payload: term
 });

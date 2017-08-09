@@ -1,9 +1,19 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { connect } from "react-redux";
 import { selectCountry, loadCountry } from "../actions/index";
 import { Flag, FlagList, Container, Heading, SubHeading } from "./ui";
 
-class CountryDetail extends Component {
+import { ICountry } from "../data/countries";
+
+interface ICountryDetailProps extends React.Props<{}> {
+  loadCountry: (iso: string) => void;
+  params: {
+    iso?: string;
+  };
+  country: ICountry;
+}
+
+class CountryDetailBase extends React.Component<ICountryDetailProps> {
   componentDidMount() {
     this.props.loadCountry(this.props.params.iso);
   }
@@ -40,12 +50,7 @@ class CountryDetail extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    country: state.country
-  };
-}
-
-export default connect(mapStateToProps, { loadCountry, selectCountry })(
-  CountryDetail
-);
+export const CountryDetail = connect(({ country }) => ({ country }), {
+  loadCountry,
+  selectCountry
+})(CountryDetailBase);

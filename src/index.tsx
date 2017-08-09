@@ -1,15 +1,15 @@
 /* eslint-env browser */
-import React from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import injectTapEventPlugin from "react-tap-event-plugin";
+import * as injectTapEventPlugin from "react-tap-event-plugin";
 import { createStore, applyMiddleware, compose } from "redux";
 import { persistStore, autoRehydrate } from "redux-persist";
-import Routes from "./routes";
+import { Routes } from "./routes";
 import Theme from "./components/ui/theme";
 import reduxThunk from "redux-thunk";
-import localForage from "localforage";
+import * as localForage from "localforage";
 
 import reducers, { whitelist } from "./reducers";
 

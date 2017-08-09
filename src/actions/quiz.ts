@@ -21,7 +21,7 @@ export const fetchFlag = country => {
   return loadImg(country.flag).catch(src => loadImg(src));
 };
 
-export const wait = time => {
+export const wait = (time: number) => {
   return new Promise(resolve => setTimeout(() => resolve(), time));
 };
 
@@ -29,7 +29,7 @@ export const loadQuiz = () => {
   return dispatch => {
     const quiz = generateQuizOptions();
 
-    const flagsPromises = quiz.options.map(fetchFlag);
+    const flagsPromises = []; //quiz.options.map(fetchFlag);
     return Promise.all(flagsPromises.concat(wait(2500))).then(flags =>
       dispatch(setQuiz(quiz))
     );

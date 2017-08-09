@@ -1,9 +1,11 @@
-import Random from "../util/random";
-import countries from "../data/countries";
+import { Random } from "../util/random";
+import countries, { ICountry } from "../data/countries";
 
 export const QUIZ_OPTIONS_COUNT = 5;
 
-let queue = [];
+type Iso3 = string;
+
+let queue: Iso3[] = [];
 
 export const generateQuizOptions = (num = QUIZ_OPTIONS_COUNT) => {
   if (queue.length > countries.length * 0.2) {

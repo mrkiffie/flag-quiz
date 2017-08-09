@@ -1,6 +1,30 @@
 import * as flags from "./flags";
 
-const countries = [
+export interface ICountry {
+  iso: string;
+  iso3: string;
+  capital: string;
+  continent: string;
+  name: string;
+  neighbours: ICountry[];
+  phone: string;
+  tld: string;
+  flag?: string;
+}
+
+interface ICountryRaw {
+  iso: string;
+  iso3: string;
+  capital: string;
+  continent: string;
+  name: string;
+  neighbours: string[];
+  phone: string;
+  tld: string;
+  flag?: string;
+}
+
+const countries: ICountryRaw[] = [
   {
     iso: "AF",
     iso3: "AFG",

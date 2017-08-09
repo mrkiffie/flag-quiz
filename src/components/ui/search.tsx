@@ -1,7 +1,11 @@
-import React from "react";
+import * as React from "react";
 import TextField from "material-ui/TextField";
 
-export const Search = ({ value, onChange }) =>
+interface ISearchProps extends React.Props<{}> {
+  value: string;
+  onChange: (e: any, term: any) => void;
+}
+export const Search: React.SFC<ISearchProps> = ({ value, onChange }) =>
   <TextField
     value={value}
     onChange={onChange}

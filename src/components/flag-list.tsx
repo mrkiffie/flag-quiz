@@ -1,21 +1,36 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { connect } from "react-redux";
 import Link from "react-router-dom/es/Link";
-import { List, AutoSizer } from "react-virtualized";
 import ListItem from "material-ui/List/ListItem";
-import Flag from "./ui/flag";
+
+import { List, AutoSizer } from "react-virtualized";
+import { Flag } from "./ui/flag";
 import { Search } from "./ui/search";
 
 import { setSearchTerm } from "../actions";
 
-class FlagListIndex extends Component {
-  constructor(props) {
-    super(props);
-    this.rowRenderer = this.rowRenderer.bind(this);
-    this.onChange = this.onChange.bind(this);
-  }
+import { ICountry } from "../data/countries";
+interface IFlagListIndex extends React.Props<{}> {
+  search: {
+    term: string;
+    filteredCountries: ICountry[];
+  };
+  setSearchTerm: (term: string) => void;
+}
 
-  rowRenderer({ key, index, style }) {
+interface IRowRenderer {
+  key: string;
+  index: number;
+  style: any;
+}
+
+interface IVirtulizedList {
+  rowRenderer: (props: IRowRenderer) => JSX.Element;
+}
+
+class FlagListIndexBase extends React.Component<IFlagListIndex>
+  implements IVirtulizedList {
+  rowRenderer = ({ key, index, style }) => {
     const { filteredCountries = [] } = this.props.search;
     const country = filteredCountries[index];
 
@@ -35,11 +50,11 @@ class FlagListIndex extends Component {
         <Flag flag={country.flag} />
       </ListItem>
     );
-  }
+  };
 
-  onChange(e, term) {
+  onChange = (e, term) => {
     this.props.setSearchTerm(term);
-  }
+  };
 
   render() {
     const { term, filteredCountries } = this.props.search;
@@ -73,6 +88,6 @@ class FlagListIndex extends Component {
   }
 }
 
-export default connect(state => ({ search: state.search }), { setSearchTerm })(
-  FlagListIndex
-);
+export const FlagListIndex = connect(({ search }) => ({ search }), {
+  setSearchTerm
+})(FlagListIndexBase);

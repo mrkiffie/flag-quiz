@@ -1,6 +1,12 @@
-import React from "react";
+import * as React from "react";
 
-export default ({ flag, large = false, onLoad }) => {
+interface IFlagProps extends React.Props<{}> {
+  flag: string;
+  large?: boolean;
+  onLoad?: () => {};
+}
+
+export const Flag: React.SFC<IFlagProps> = ({ flag = "", large, onLoad }) => {
   const flagStyle = {
     width: "auto",
     height: "auto",

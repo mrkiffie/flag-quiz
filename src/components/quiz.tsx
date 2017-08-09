@@ -1,11 +1,23 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { connect } from "react-redux";
 import List from "material-ui/List/List";
 import ListItem from "material-ui/List/ListItem";
 import { Flag, Container, AnswerStatus, Heading } from "./ui";
 import { answerQuiz } from "../actions";
 
-class Quiz extends Component {
+import { ICountry } from "../data/countries";
+interface IQuizProps extends React.Props<{}> {
+  selected: ICountry;
+  answerQuiz: (answer: ICountry) => void;
+  options?: ICountry[];
+  answer?: ICountry;
+  params: {
+    from?: string;
+    to?: string;
+  };
+}
+
+class QuizBase extends React.Component<IQuizProps> {
   onClick(option) {
     if (this.props.selected) {
       return; // option already selected - prevent duplicate clicks
@@ -70,4 +82,4 @@ class Quiz extends Component {
   }
 }
 
-export default connect(state => ({ ...state.quiz }), { answerQuiz })(Quiz);
+export const Quiz = connect(({ quiz }) => quiz, { answerQuiz })(QuizBase);

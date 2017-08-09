@@ -1,9 +1,20 @@
-import React from "react";
+import * as React from "react";
 import { green500, red500 } from "material-ui/styles/colors";
 import NavigationCheck from "material-ui/svg-icons/navigation/check";
 import NavigationClose from "material-ui/svg-icons/navigation/close";
 
-export default ({ answer, selected, option }) => {
+import { ICountry } from "../../data/countries";
+interface IAnswerStatus extends React.Props<{}> {
+  answer?: ICountry;
+  selected?: ICountry;
+  option?: ICountry;
+}
+
+export const AnswerStatus: React.SFC<IAnswerStatus> = ({
+  answer,
+  selected,
+  option
+}) => {
   // always show the correct answer
   if (selected && option.iso === answer.iso) {
     return <NavigationCheck color={green500} />;

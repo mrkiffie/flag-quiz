@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { connect } from "react-redux";
 import Drawer from "material-ui/Drawer";
 import List from "material-ui/List/List";
@@ -7,27 +7,33 @@ import Divider from "material-ui/Divider";
 import NavigationClose from "material-ui/svg-icons/navigation/close";
 import muiThemeable from "material-ui/styles/muiThemeable";
 import Link from "react-router-dom/es/Link";
-import Settings from "./settings";
+import { Settings } from "./settings";
 import { resetScore } from "../actions";
 
-class Navigation extends Component {
+interface INavigation extends React.Props<{}> {
+  toggleMenu: (boolean) => {};
+  open: boolean;
+  muiTheme: any;
+  resetScore: () => {};
+}
+class NavigationBase extends React.Component<INavigation> {
   onCLick(delay = 200) {
     setTimeout(() => {
       this.props.toggleMenu(false);
     }, delay);
   }
 
-  render() {
-    const routes = [
-      { route: "/flag-country", text: "Flag Country" },
-      { route: "/flag-capital", text: "Flag Capital" },
-      { route: "/country-flag", text: "Country Flag" },
-      { route: "/country-capital", text: "Country Capital" },
-      { route: "/capital-flag", text: "Capital Flag" },
-      { route: "/capital-country", text: "Capital Country" },
-      { route: "/flag-list", text: "Flag List" }
-    ];
+  routes = [
+    { route: "/flag-country", text: "Flag Country" },
+    { route: "/flag-capital", text: "Flag Capital" },
+    { route: "/country-flag", text: "Country Flag" },
+    { route: "/country-capital", text: "Country Capital" },
+    { route: "/capital-flag", text: "Capital Flag" },
+    { route: "/capital-country", text: "Capital Country" },
+    { route: "/flag-list", text: "Flag List" }
+  ];
 
+  render() {
     const { open, muiTheme } = this.props;
 
     const tabIndex = open ? 0 : -1;
@@ -56,7 +62,7 @@ class Navigation extends Component {
                 }}
               />
             </ListItem>
-            {routes.map(({ route, text }) =>
+            {this.routes.map(({ route, text }) =>
               <ListItem
                 key={route}
                 containerElement={<Link to={route} />}
@@ -87,4 +93,6 @@ class Navigation extends Component {
   }
 }
 
-export default muiThemeable()(connect(null, { resetScore })(Navigation));
+export const Navigation = muiThemeable()(
+  connect(null, { resetScore })(NavigationBase)
+);

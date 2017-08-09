@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   score: true
 };
 
-export default (state = {}, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case REHYDRATE:
       const { settings } = action.payload;

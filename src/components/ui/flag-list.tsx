@@ -1,10 +1,16 @@
-import React from "react";
+import * as React from "react";
 import Link from "react-router-dom/es/Link";
 import List from "material-ui/List/List";
 import ListItem from "material-ui/List/ListItem";
-import Flag from "./flag";
+import { Flag } from "./flag";
 
-export default ({ countries = [] }) =>
+import { ICountry } from "../../data/countries";
+
+interface IFlagListProps extends React.Props<{}> {
+  countries: ICountry[];
+}
+
+export const FlagList: React.SFC<IFlagListProps> = ({ countries = [] }) =>
   <List
     style={{
       display: "flex",

@@ -1,4 +1,4 @@
-import indexedCountries from "../data/indexed-countries";
+import { indexedCountries } from "../data/indexed-countries";
 import { LOAD_COUNTRY } from "../actions/index";
 
 export default (state = null, action) => {

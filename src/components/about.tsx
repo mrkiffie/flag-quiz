@@ -1,8 +1,12 @@
-import React from "react";
+import * as React from "react";
 import muiThemeable from "material-ui/styles/muiThemeable";
 import { SubHeading } from "./ui";
 
-const About = ({ muiTheme }) => {
+interface IAboutProps extends React.Props<{}> {
+  muiTheme: any;
+}
+
+const AboutBase: React.SFC<IAboutProps> = ({ muiTheme }) => {
   const styles = {
     div: {
       textAlign: "center",
@@ -17,7 +21,7 @@ const About = ({ muiTheme }) => {
   };
 
   return (
-    <div style={styles.div}>
+    <div style={styles.div as any}>
       <SubHeading>About</SubHeading>
       <p>a simple flag quiz</p>
       <p>
@@ -60,4 +64,4 @@ const About = ({ muiTheme }) => {
   );
 };
 
-export default muiThemeable()(About);
+export const About = muiThemeable()(AboutBase);

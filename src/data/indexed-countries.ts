@@ -1,12 +1,11 @@
-import countries from "./countries";
+import countries, { ICountry } from "./countries";
 
-const indexedCountries = countries.reduce(
-  (hash, country) => ({
-    ...hash,
-    ...{ [country.iso]: country }
-  }),
-  {}
-);
+export const indexedCountries: {
+  [iso: string]: ICountry;
+} = countries.reduce((hash, country) => {
+  hash[country.iso] = country;
+  return hash;
+}, {});
 
 countries.forEach(country => {
   country.neighbours.forEach(iso => {
