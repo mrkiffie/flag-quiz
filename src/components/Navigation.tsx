@@ -15,6 +15,8 @@ import { Switch } from "./ui/Switch";
 interface INavigation {
   isMenuOpen?: boolean;
   isScoreEnabled?: boolean;
+  isFastModeEnabled?: boolean;
+  toggleFastMode?: () => {};
   toggleMenu?: (open: boolean) => {};
   toggleScore?: () => {};
   resetScore?: () => {};
@@ -22,6 +24,8 @@ interface INavigation {
 @inject((allStores: { flagQuizStore: FlagQuizStore }) => ({
   isMenuOpen: allStores.flagQuizStore.menu.open,
   isScoreEnabled: allStores.flagQuizStore.settings.isScoreEnabled,
+  isFastModeEnabled: allStores.flagQuizStore.settings.isFastModeEnabled,
+  toggleFastMode: allStores.flagQuizStore.settings.toggleFastMode,
   toggleMenu: allStores.flagQuizStore.menu.toggleMenu,
   toggleScore: allStores.flagQuizStore.settings.toggleScore,
   resetScore: allStores.flagQuizStore.quiz.resetScore
@@ -45,7 +49,8 @@ export class Navigation extends React.Component<INavigation> {
     { route: "/country-capital", text: "Country Capital" },
     { route: "/capital-flag", text: "Capital Flag" },
     { route: "/capital-country", text: "Capital Country" },
-    { route: "/flag-list", text: "Flag List" }
+    { route: "/flag-list", text: "Flag List" },
+    { route: "/spelling-challenge", text: "Country Spelling Challenge" }
   ];
 
   public render() {
@@ -54,7 +59,7 @@ export class Navigation extends React.Component<INavigation> {
     const tabIndex = isMenuOpen ? 0 : -1;
 
     return (
-      <>
+      <React.Fragment>
         <Overlay open={isMenuOpen} />
         <Nav open={isMenuOpen}>
           <Toolbar>
@@ -77,19 +82,14 @@ export class Navigation extends React.Component<INavigation> {
               {text}
             </Link>
           ))}
-          <Label
-            tabIndex={tabIndex}
-            onClick={this.props.toggleScore}
-            onKeyPress={e => e.key === "Enter" && this.props.toggleScore()}
-          >
+          <Button tabIndex={tabIndex} onClick={this.props.toggleScore}>
             Toggle Score
-            <Switch
-              tabIndex={-1}
-              disabled={tabIndex === -1}
-              checked={this.props.isScoreEnabled}
-              onChange={this.props.toggleScore}
-            />
-          </Label>
+            <Switch checked={this.props.isScoreEnabled} />
+          </Button>
+          <Button tabIndex={tabIndex} onClick={this.props.toggleFastMode}>
+            Toggle Fast Mode
+            <Switch checked={this.props.isFastModeEnabled} />
+          </Button>
           <Button tabIndex={tabIndex} onClick={this.props.resetScore}>
             Reset Score
           </Button>
@@ -97,7 +97,7 @@ export class Navigation extends React.Component<INavigation> {
             About
           </Link>
         </Nav>
-      </>
+      </React.Fragment>
     );
   }
 }

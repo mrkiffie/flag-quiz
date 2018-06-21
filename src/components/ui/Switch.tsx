@@ -80,19 +80,17 @@ Thumb.displayName = "SwitchThumb";
 
 interface ISwitchProps {
   checked: boolean;
-  disabled: boolean;
-  tabIndex: number;
-  onChange: (event: any) => void;
+  tabIndex?: number;
+  onChange?: (event: any) => void;
 }
 
 export const Switch: React.SFC<ISwitchProps> = props => (
   <Wrapper>
-    <Input
+    {/* <Input
       checked={props.checked}
       onChange={props.onChange}
-      disabled={props.disabled}
       tabIndex={props.tabIndex}
-    />
+    /> */}
     <Track checked={props.checked} />
     <Thumb checked={props.checked} />
   </Wrapper>
