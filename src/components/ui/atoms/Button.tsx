@@ -29,6 +29,15 @@ export const ButtonStyle = css`
 
 export const Button = styled.button`
   ${ButtonStyle};
+  ${(p: { autoWidth?: boolean }) =>
+    p.autoWidth &&
+    css`
+      margin: 0 auto;
+      width: auto;
+      min-width: 8em;
+      justify-content: center;
+      align-items: center;
+    `};
 `;
 
 export const IconButton = styled.button`

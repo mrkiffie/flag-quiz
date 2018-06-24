@@ -74,7 +74,7 @@ const Thumb = styled.div`
     0px 0.125em 0.5em rgba(0, 0, 0, 0.12);
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   transform: translateX(${(p: IThumbProps) => (p.checked ? "3em" : "0")});
-  z-index: 2;
+  z-index: 0;
 `;
 Thumb.displayName = "SwitchThumb";
 

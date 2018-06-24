@@ -13,5 +13,6 @@ export const Toolbar = styled.div`
   color: #fff;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  font-weight: 300;
 `;
 Toolbar.displayName = "Toolbar";

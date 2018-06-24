@@ -1,10 +1,9 @@
-import { observable, computed } from "mobx";
+import { observable, computed, action } from "mobx";
 import { indexedCountries } from "../data/indexed-countries";
-import { ICountry } from "../data/countries";
 import { Random } from "../util/Random";
 
 export class CountrySpellingChallenge {
-  private all = Object.keys(indexedCountries);
+  private readonly all = Object.keys(indexedCountries);
   @observable public answer: string = "";
 
   @observable private done: string[] = [];
@@ -14,6 +13,7 @@ export class CountrySpellingChallenge {
   public get completed() {
     return this.done.length;
   }
+
   @computed
   public get total() {
     return this.all.length;
@@ -24,6 +24,7 @@ export class CountrySpellingChallenge {
     return indexedCountries[this.todo[this.todo.length - 1]];
   }
 
+  @action
   public setAnswer = (value: string) => {
     this.answer = value;
     if (this.answer.toLowerCase().trim() === this.country.name.toLowerCase()) {
@@ -33,16 +34,23 @@ export class CountrySpellingChallenge {
     }
   };
 
+  @action
   public previous = () => {
     this.todo.push(this.todo.shift());
   };
+
+  @action
   public next = () => {
     this.todo.unshift(this.todo.pop());
   };
+
+  @action
   public reset = () => {
     this.done = [];
     this.todo = Random.shuffleArray(this.all);
   };
+
+  @action
   public randomize = () => {
     this.todo = Random.shuffleArray(this.todo);
   };
